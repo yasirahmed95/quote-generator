@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
 
 import { Container } from "./components/styles/Container.styled";
@@ -45,6 +45,7 @@ const App = () => {
 
   useEffect(() => {
     quoteGenerator();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (quote) {
