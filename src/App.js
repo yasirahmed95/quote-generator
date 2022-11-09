@@ -1,25 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { ThemeProvider } from "styled-components";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { Container } from "./components/styles/Container.styled";
+import GlobalStyles from "./components/styles/Global";
+import QuoteBox from "./components/QuoteBox";
+import Quote from "./api/Quote";
+
+const App = () => {
+  const [quote, setQuote] = useState(null);
+  const [bgColor, setBgColor] = useState(null);
+  const colors = [
+    "#1b0157",
+    "#440d0f",
+    "#d85f27",
+    "#405b6c",
+    "#b1ad9e",
+    "#5b2a86",
+    "#80756d",
+    "#89a7a7",
+    "#023702",
+    "#f06c9b",
+  ];
+
+  const theme = {
+    colors: {
+      background: bgColor,
+      buttonText: "white",
+    },
+  };
+
+  const quoteGenerator = async () => {
+    const response = await Quote.get("/random");
+    setQuote(response.data);
+    colorChanger(colors);
+  };
+
+  const colorChanger = (arr) => {
+    const color = arr[Math.floor(Math.random() * arr.length)];
+    if (color === bgColor) {
+      colorChanger(arr);
+    }
+    setBgColor(color);
+  };
+
+  useEffect(() => {
+    quoteGenerator();
+  }, []);
+
+  if (quote) {
+    return (
+      <ThemeProvider theme={theme}>
+        <>
+          <GlobalStyles />
+          <Container>
+            <QuoteBox
+              quote={quote}
+              bgColor={bgColor}
+              quoteGenerator={quoteGenerator}
+            />
+          </Container>
+        </>
+      </ThemeProvider>
+    );
+  }
+};
 
 export default App;
