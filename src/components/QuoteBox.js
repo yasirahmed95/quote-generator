@@ -3,7 +3,7 @@ import { StyledCard, CardBody } from "./styles/Card.styled";
 import { Flex } from "./styles/Flex";
 import { StyledButton } from "./styles/Button";
 
-const QuoteBox = ({ quote, quoteGenerator, bgColor }) => {
+const QuoteBox = ({ quote, quoteGenerator }) => {
   const tweetContent = `"${quote.content}" ${quote.author}`;
   return (
     <StyledCard id="quote-box">
@@ -19,6 +19,7 @@ const QuoteBox = ({ quote, quoteGenerator, bgColor }) => {
             <a
               href={`https://twitter.com/intent/tweet?hashtags=quotes&text=${tweetContent}`}
               target="_blank"
+              rel="noreferrer"
               id="tweet-quote"
             >
               <i className="bi bi-twitter"></i>
