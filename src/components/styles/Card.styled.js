@@ -9,7 +9,7 @@ export const StyledCard = styled(Card)`
   border-radius: 4px;
 `;
 
-export const CardBody = styled(Card.Body)`
+export const CardBody = styled.div`
   padding: 35px;
 
   blockquote {

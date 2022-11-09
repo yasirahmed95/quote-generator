@@ -32,7 +32,7 @@ const App = () => {
   const quoteGenerator = async () => {
     const response = await Quote.get("/random");
     setQuote(response.data);
-    colorChanger(colors);
+    setBgColor(colorChanger(colors));
   };
 
   const colorChanger = (arr) => {
@@ -40,7 +40,7 @@ const App = () => {
     if (color === bgColor) {
       colorChanger(arr);
     }
-    setBgColor(color);
+    return color;
   };
 
   useEffect(() => {
